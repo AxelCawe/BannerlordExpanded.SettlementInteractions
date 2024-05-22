@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+	<tags>
+		<tag language="English" />
+	</tags>
+	<strings>
+		<!-- Inn Module -->
+		
+		<string id="BESI_Inn_GameMenu_Inn" text="Inn" />
+		<string id="BESI_Inn_GameMenu_GoToInn" text="Go to the village inn" />
+		<string id="BESI_Inn_GameMenu_InInn" text="You are in the village inn." />		
+		<string id="BESI_Inn_GameMenu_VisitTheInn" text="Visit the inn" />		
+		<string id="BESI_Inn_GameMenu_Back" text="Back to village" />	
+		
+		<string id="BESI_Inn_OwnerName" text="Innkeeper" />		
+		<string id="BESI_Inn_HelperName" text="Inn Helper" />		
+		
+		<!-- Start Your Own Tournaments Module -->
+		<string id="BESI_GameMenu_StartYourOwnTournament_Denar" text="Start a new tournament with denars" />		 
+		<string id="BESI_GameMenu_StartYourOwnTournament_denar" text="Start a new tournament with influence" />	
+		
+		<string id="BESI_InquiryMenu_StartYourOwnTournament_CancelButton" text="Cancel" />		 
+		<string id="BESI_InquiryMenu_StartYourOwnTournament_ConfirmDenarTournament" text="Are you sure you want to start a tournament using {TOURNAMENT_COST}{GOLD_ICON}?" />		 
+		<string id="BESI_InquiryMenu_StartYourOwnTournament_ConfirmInfluenceTournament" text="Are you sure you want to start a tournament using {TOURNAMENT_COST} influence?" />		 
+		<string id="BESI_InquiryMenu_StartYourOwnTournament_ConfirmTitle" text="Start Tournament Confirmation" />		 
+		<string id="BESI_InquiryMenu_StartYourOwnTournament_ConfirmButton" text="Confirm" />		 
+		
+		<string id="BESI_GameMenu_StartYourOwnTournament_ExplainInfluencePrice" text="It costs {TOURNAMENT_COST} influence to start a tournament." />		 
+		<string id="BESI_GameMenu_StartYourOwnTournament_ExplainDenarPrice" text="It costs {TOURNAMENT_COST}{GOLD_ICON} to start a tournament." />		 
+		<string id="BESI_GameMenu_StartYourOwnTournament_ExplainThatPlayerDoesNotHaveEnoughInfluence" text="It costs {TOURNAMENT_COST} influence to start a tournament. You do not have enough influence!" />		 
+		<string id="BESI_GameMenu_StartYourOwnTournament_ExplainThatPlayerDoesNotHaveEnoughDenars" text="It costs {TOURNAMENT_COST}{GOLD_ICON} to start a tournament. You do not have enough {GOLD_ICON}!" />		 
+		<string id="BESI_GameMenu_startyourowntournament_ExplainThatPlayerIsNotAffiliatedWithTown" text="You are not affiliated with this town." />		
+		
+		<string id="BESI_Announcement_StartYourOwnTournament_UsedInfluence" text="You have used {INFLUENCE_COST} influence to start a tournament!" />		
+		
+		<!-- Companion Training Module-->
+		<string id="BESI_TrainCompanions" text="Train Clan Members" />		
+		
+		<string id="BESI_TrainCompanions_CastleMenuTitle" text="Castle Training Grounds" />		
+		<string id="BESI_TrainCompanions_CastleMenuText" text="The castle is a good area to train up your companions. It will take {NUM_TRAINING_HOURS} hours." />		
+		<string id="BESI_TrainCompanions_Back" text="Back" />		
+		<string id="BESI_TrainCompanions_StartTraining" text="Start Training" />		
+		<string id="BESI_TrainCompanions_StartTraining_Rejected_NoCompanions" text="You have no companions to train!" />		
+		<string id="BESI_TrainCompanions_StartTraining_Rejected_NoRenown" text="Your renown is not high enough! The castle owner does not allow you to train at their castle!" />		
+		
+		<string id="BESI_TrainCompanions_Midway" text="You are training your companion..." />		
+		
+		<string id="BESI_TrainCompanions_StartTraining_ChooseCompanionTitle" text="Your Companions" />		
+		<string id="BESI_TrainCompanions_StartTraining_ChooseCompanionDesc" text="Choose a companion to train." />		
+		<string id="BESI_TrainCompanions_StartTraining_ChooseCompanionCancel" text="Cancel" />		
+		<string id="BESI_TrainCompanions_StartTraining_ChooseCompanionConfirm" text="Confirm" />		
+		<string id="BESI_TrainCompanions_StartTraining_ChooseCompanionDesc" text="Choose a companion to train." />		
+		
+		
+		
+		<string id="BESI_TrainCompanions_EndedMenuText" text="You put {TRAINEE.NAME} through the basics of soldiering, discipline and obedience. But it's not over yet, {?TRAINEE.GENDER}she{?}he{\\?} seems enthusiastic to show-off what he learnt from you and is asking for a friendly fully-armed duel. However, having such a duel on castle grounds will cause too much trouble!" />		
+		<string id="BESI_TrainCompanions_EndedMenuStartDuel" text="Head outside the castle to start the duel." />		
+		<string id="BESI_TrainCompanions_EndedMenuSkipDuel" text="Reject the idea of the duel." />		
+		<string id="BESI_TrainCompanions_XPResults" text="[Bannerlord Expanded]: {TRAINEE.NAME} has gained {AMOUNT_XP} XP in {SKILL_NAME}." />		
+		
+		<string id="BESI_TrainCompanions_AfterDuelVictory" text="{TRAINEE.NAME} has lost and accepted his defeat. However you are confident that {?TRAINEE.GENDER}she{?}he{\\?} has improved tremendously from before." />		
+		<string id="BESI_TrainCompanions_AfterDuelLost" text="You have lost and accepted your defeat. It seems that {TRAINEE.NAME} has grown stronger and surpassed you." />		
+		<string id="BESI_TrainCompanions_AfterDuel_Leave" text="Leave" />		
+		
+		<!-- Host Party For Soldiers Module-->
+		<string id="BESI_HostPartyForSoldiers" text="Host party for soldiers" />		
+		<string id="BESI_HostPartyForSoldiersMenuTitle" text="Host Party For Your Soldiers" />		
+		<string id="BESI_HostPartyForSoldiersMenu" text="You found a suitable room to host a party for your soldiers. It will take about {NUM_OF_HOURS} hours and {NUM_OF_DENARS} to prepare." />		
+		<string id="BESI_HostPartyForSoldiers_Back" text="Back" />		
+		<string id="BESI_HostPartyForSoldiers_NotEnoughDenars" text="You do not have enough denars." />	
+		<string id="BESI_HostPartyForSoldiers_NotOwnerOfCastle" text="You are not the owner of this castle!" />	
+		
+		<string id="BESI_HostPartyForSoldiers_StartPreparation" text="Start Preparations" />	
+		<string id="BESI_HostPartyForSoldiers_Preparation" text="You gathered all available people from your castle to help out with the preparations. Preparations are ongoing..." />	
+		<string id="BESI_HostPartyForSoldiers_PreparationFinished" text="The preparations are finished! Temporary tavern maids are on standby while your men are walking in." />	
+		<string id="BESI_HostPartyForSoldiers_JoinParty" text="Join the party!" />	
+		<string id="BESI_HostPartyForSoldiers_MoraleBoosted" text="Your party's morale has increased!" />	
+		
+		<string id="BESI_HostPartyForSoldiers_Dialog1" text="Thank you granting us this small period of joy, your highness." />		
+		<string id="BESI_HostPartyForSoldiers_Dialog2" text="Your highness, after all this fighting, I am grateful for this party that honors us." />		
+		<string id="BESI_HostPartyForSoldiers_Dialog3" text="Ayeeee, this feast is what we needed!" />		
+		
+		<string id="BESI_HostPartyForSoldiers_RoomName" text="Party Room" />		
+		
+		<!-- Settings-->
+		<string id="BE_SettlementInteractions_Settings_InnModule" text="Inn Module" />		
+		<string id="BE_SettlementInteractions_Settings_InnModule_MaxCompanions" text="Maximum number of wanderers in village" />		
+		<string id="BE_SettlementInteractions_Settings_InnModule_MaxCompanions_Desc" text="The maximum number of wanderers that can be in a village at once. Expect lag/temporary freezes if you set a high number. Click on Refresh Wanderers button when changing this setting while in-game!" />		
+		<string id="BE_SettlementInteractions_Settings_InnModule_RefreshWeekly" text="Auto-refresh Wanderers weekly" />		
+		<string id="BE_SettlementInteractions_Settings_InnModule_RefreshWeekly_Desc" text="Automatically refreshes the wanderers at the start of every week. May cause lag!" />		
+		<string id="BE_SettlementInteractions_Settings_InnModule_Refresh" text="Refresh Wanderers" />		
+		<string id="BE_SettlementInteractions_Settings_InnModule_Refresh_Desc" text="Press to refresh" />		
+		<string id="BE_SettlementInteractions_Settings_InnModule_Refresh_ButtonText" text="Removes all current wanderers and spawn new ones. Use when changing max number of companions midgame! MAY CAUSE TEMPORARY FREEZE" />		
+		
+		<string id="BE_SettlementInteractions_Settings_StartYourOwnTournamentsModule" text="Start Your Own Tournaments" />		
+		<string id="BE_SettlementInteractions_Settings_StartYourOwnTournamentsModule_DenarCost" text="Denar Cost to start tournaments" />		
+		<string id="BE_SettlementInteractions_Settings_StartYourOwnTournamentsModule_DenarCost_Desc" text="How much denars it costs to start a tournament." />		
+		<string id="BE_SettlementInteractions_Settings_StartYourOwnTournamentsModule_InfluenceCost" text="Influence Cost to start tournaments" />		
+		<string id="BE_SettlementInteractions_Settings_StartYourOwnTournamentsModule_InfluenceCost_Desc" text="How much influence it costs to start a tournament." />	
+		
+		<string id="BE_SettlementInteractions_Settings_CompanionTrainingModule" text="Companion Training" />		
+		<string id="BE_SettlementInteractions_Settings_CompanionTrainingModule_TrainingHours" text="Hours to train companion" />		
+		<string id="BE_SettlementInteractions_Settings_CompanionTrainingModule_TrainingHours_Desc" text="How many hours it takes to train a companion." />		
+		<string id="BE_SettlementInteractions_Settings_CompanionTrainingModule_NumSkillsToLearn" text="Number of random skills for companion to improve" />		
+		<string id="BE_SettlementInteractions_Settings_CompanionTrainingModule_NumSkillsToLearn_Desc" text="When a companion finishes training, this setting will determine how many random skills the companion will improve on." />		
+		<string id="BE_SettlementInteractions_Settings_CompanionTrainingModule_XpGainPerLevel" text="XP gain per skill level" />		
+		<string id="BE_SettlementInteractions_Settings_CompanionTrainingModule_XpGainPerLevel_Desc" text="How much xp per skill level your companion will gain when finishing training." />		
+		
+		<string id="BE_SettlementInteractions_Settings_HostPartyModule" text="Host Party For Soldiers" />		
+		<string id="BE_SettlementInteractions_Settings_HostPartyModule_PartyCost" text="Party Cost in Denars" />		
+		<string id="BE_SettlementInteractions_Settings_HostPartyModule_PartyCost_Desc" text="How much denars it cost to host a party." />		
+		<string id="BE_SettlementInteractions_Settings_HostPartyModule_PartyPreparationHours" text="Party Preparation Duration in Hours" />		
+		<string id="BE_SettlementInteractions_Settings_HostPartyModule_PartyPreparationHours_Desc" text="How many hours it takes to prepare the party." />		
+		<string id="BE_SettlementInteractions_Settings_HostPartyModule_MoraleGain" text="Party Morale Gain" />		
+		<string id="BE_SettlementInteractions_Settings_HostPartyModule_MoraleGain_Desc" text="How much morale is gained from hosting a party." />		
+		
+		
+	
+	</strings>
+</base>
