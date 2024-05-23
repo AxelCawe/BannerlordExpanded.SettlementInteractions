@@ -17,7 +17,7 @@
 		
 		<!-- Start Your Own Tournaments Module -->
 		<string id="BESI_GameMenu_StartYourOwnTournament_Denar" text="Start a new tournament with denars" />		 
-		<string id="BESI_GameMenu_StartYourOwnTournament_denar" text="Start a new tournament with influence" />	
+		<string id="BESI_GameMenu_StartYourOwnTournament_Influence" text="Start a new tournament with influence" />	
 		
 		<string id="BESI_InquiryMenu_StartYourOwnTournament_CancelButton" text="Cancel" />		 
 		<string id="BESI_InquiryMenu_StartYourOwnTournament_ConfirmDenarTournament" text="Are you sure you want to start a tournament using {TOURNAMENT_COST}{GOLD_ICON}?" />		 
@@ -53,12 +53,12 @@
 		
 		
 		
-		<string id="BESI_TrainCompanions_EndedMenuText" text="You put {TRAINEE.NAME} through the basics of soldiering, discipline and obedience. But it's not over yet, {?TRAINEE.GENDER}she{?}he{\\?} seems enthusiastic to show-off what he learnt from you and is asking for a friendly fully-armed duel. However, having such a duel on castle grounds will cause too much trouble!" />		
+		<string id="BESI_TrainCompanions_EndedMenuText" text="You put {TRAINEE.NAME} through the basics of soldiering, discipline and obedience. But it's not over yet, {?TRAINEE.GENDER}she{?}he{\?} seems enthusiastic to show-off what he learnt from you and is asking for a friendly fully-armed duel. However, having such a duel on castle grounds will cause too much trouble!" />		
 		<string id="BESI_TrainCompanions_EndedMenuStartDuel" text="Head outside the castle to start the duel." />		
 		<string id="BESI_TrainCompanions_EndedMenuSkipDuel" text="Reject the idea of the duel." />		
 		<string id="BESI_TrainCompanions_XPResults" text="[Bannerlord Expanded]: {TRAINEE.NAME} has gained {AMOUNT_XP} XP in {SKILL_NAME}." />		
 		
-		<string id="BESI_TrainCompanions_AfterDuelVictory" text="{TRAINEE.NAME} has lost and accepted his defeat. However you are confident that {?TRAINEE.GENDER}she{?}he{\\?} has improved tremendously from before." />		
+		<string id="BESI_TrainCompanions_AfterDuelVictory" text="{TRAINEE.NAME} has lost and accepted his defeat. However you are confident that {?TRAINEE.GENDER}she{?}he{\?} has improved tremendously from before." />		
 		<string id="BESI_TrainCompanions_AfterDuelLost" text="You have lost and accepted your defeat. It seems that {TRAINEE.NAME} has grown stronger and surpassed you." />		
 		<string id="BESI_TrainCompanions_AfterDuel_Leave" text="Leave" />		
 		
