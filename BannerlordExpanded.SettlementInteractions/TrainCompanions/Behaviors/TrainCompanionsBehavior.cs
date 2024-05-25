@@ -30,7 +30,7 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
         {
             //throw new NotImplementedException();
             dataStore.SyncData("BE_SettlementInteractions_TrainCompanions_TrainingDurationLeft", ref _trainingDurationLeft);
-            dataStore.SyncData("BE_SettlementInteractions_TrainCompanions_CompanionInTraining", ref _trainingDurationLeft);
+            dataStore.SyncData("BE_SettlementInteractions_TrainCompanions_CompanionInTraining", ref _companionInTraining);
 
         }
 
@@ -59,7 +59,15 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
 
             gameStarter.AddGameMenu("besi_castle_companiontraining_ended",
                 "{=BESI_TrainCompanions_EndedMenuText}You put {TRAINEE.NAME} through the basics of soldiering, discipline and obedience. But it's not over yet, {?TRAINEE.GENDER}she{?}he{\\?} seems enthusiastic to show-off what he learnt from you and is asking for a friendly fully-armed duel. However, having such a duel on castle grounds will cause too much trouble!",
-                (args) => { StringHelpers.SetCharacterProperties("TRAINEE", _companionInTraining.CharacterObject, null, false); });
+                (args) =>
+                {
+                    if (_companionInTraining == null)
+                    {
+                        GameMenu.SwitchToMenu("besi_castle_companiontraining");
+                        return;
+                    }
+                    StringHelpers.SetCharacterProperties("TRAINEE", _companionInTraining.CharacterObject, null, false);
+                });
             gameStarter.AddGameMenuOption("besi_castle_companiontraining_ended", "besi_castle_companiontraining_ended_duelstart", "{=BESI_TrainCompanions_EndedMenuStartDuel}Head outside the castle to start the duel.", (args) => { args.optionLeaveType = GameMenuOption.LeaveType.PracticeFight; return true; }, (args) => { StartDuel(); });
             gameStarter.AddGameMenuOption("besi_castle_companiontraining_ended", "besi_castle_companiontraining_ended_skipduel", "{=BESI_TrainCompanions_EndedMenuSkipDuel}Reject the idea of the duel.", (args) => { args.optionLeaveType = GameMenuOption.LeaveType.Leave; return true; }, (args) => { GameMenu.SwitchToMenu("besi_castle_companiontraining"); });
 
