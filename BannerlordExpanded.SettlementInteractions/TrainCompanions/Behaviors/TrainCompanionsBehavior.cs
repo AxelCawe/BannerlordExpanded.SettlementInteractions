@@ -30,7 +30,22 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
         {
             //throw new NotImplementedException();
             dataStore.SyncData("BE_SettlementInteractions_TrainCompanions_TrainingDurationLeft", ref _trainingDurationLeft);
-            dataStore.SyncData("BE_SettlementInteractions_TrainCompanions_CompanionInTraining", ref _companionInTraining);
+
+            if (dataStore.IsSaving)
+            {
+                dataStore.SyncData("BE_SettlementInteractions_TrainCompanions_CompanionInTraining", ref _companionInTraining);
+
+            }
+            else
+            {
+                // Data type check before loading
+                object companion = null;
+                dataStore.SyncData("BE_SettlementInteractions_TrainCompanions_CompanionInTraining", ref companion);
+                if (companion as Hero != null)
+                    _companionInTraining = companion as Hero;
+            }
+
+
 
         }
 
