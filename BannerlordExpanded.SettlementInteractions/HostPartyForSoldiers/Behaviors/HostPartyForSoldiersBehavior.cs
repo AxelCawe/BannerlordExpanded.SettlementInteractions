@@ -115,7 +115,7 @@ namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Behavio
         }
         public void OnPreparationFinished()
         {
-            MobileParty.MainParty.RecentEventsMorale += 5;
+            MobileParty.MainParty.RecentEventsMorale += MCMSettings.Instance.HostPartyMoraleGain;
             InformationManager.DisplayMessage(new InformationMessage(new TextObject("{=BESI_HostPartyForSoldiers_MoraleBoosted}Your party's morale has increased!").ToString()));
             GameMenu.SwitchToMenu("castle");
             Campaign.Current.GetCampaignBehavior<HostPartyRoomBehavior>().EnterPartyRoom();
