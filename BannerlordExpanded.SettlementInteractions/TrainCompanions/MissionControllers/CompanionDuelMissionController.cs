@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TaleWorlds.CampaignSystem.AgentOrigins;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.AgentOrigins;
 using TaleWorlds.Core;
 using TaleWorlds.Engine;
+using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
-using TaleWorlds.InputSystem;
-using BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors;
-using Extensions = TaleWorlds.Core.Extensions;
 
 namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.MissionControllers
 {
@@ -45,7 +41,10 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.MissionContr
             //var attackerEntity = Mission.Current.Scene.FindEntityWithTag("spawnpoint_player");
             var attackerEntity = Mission.Current.Scene.FindEntityWithTag("attacker_infantry") ?? Mission.Current.Scene.FindEntityWithName("sp_attacker_infantry"); ;
 
-
+            if (attackerEntity == null)
+            {
+                throw new Exception($"[BannerlordExpanded - Settlement Interactions]: Cannot find spawn point in {Mission.Current.Scene.GetName()}! Find the mod author the map to add in the proper spawn points read by vanilla game");
+            }
 
             Vec3 globalPosition = attackerEntity.GlobalPosition;
             getBattleSpawnFrames(globalPosition.AsVec2, out playerSpawnFrame, out opponentSpawnFrame);
