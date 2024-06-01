@@ -21,7 +21,7 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
         public override void RegisterEvents()
         {
             //CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
-            CampaignEvents.OnNewGameCreatedEvent.AddNonSerializedListener(this, OnNewGameCreatedEvent);
+            CampaignEvents.OnNewGameCreatedPartialFollowUpEndEvent.AddNonSerializedListener(this, OnNewGameCreatedEvent);
             Campaign.Current.GetCampaignBehavior<InnBehavior>().OnInnEntered += OnInnEntered;
             Campaign.Current.GetCampaignBehavior<InnBehavior>().OnInnLeft += OnInnLeft;
             //CampaignEvents.AfterSettlementEntered.AddNonSerializedListener(this, OnAfterSettlementEntered);
