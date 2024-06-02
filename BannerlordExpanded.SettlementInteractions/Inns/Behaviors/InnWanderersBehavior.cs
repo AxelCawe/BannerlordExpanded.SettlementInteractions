@@ -164,7 +164,7 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                         //LocationCharacter locCharacter = village.Settlement.LocationComplex.GetLocationCharacterOfHero(wanderer);
                         //locCharacter.IsHidden = false;
                         wanderer.ChangeState(Hero.CharacterStates.NotSpawned);
-                        LeaveSettlementAction.ApplyForCharacterOnly(wanderer);
+                        //LeaveSettlementAction.ApplyForCharacterOnly(wanderer);
                     }
                     else
                         hiredWanderers.Add(wanderer);
