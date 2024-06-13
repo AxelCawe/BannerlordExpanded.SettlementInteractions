@@ -1,6 +1,7 @@
 ﻿using BannerlordExpanded.SettlementInteractions.Inns.Settings;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.Settlements;
@@ -110,6 +111,11 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                 List<Hero> wanderersAtSettlement;
                 if (_existingVillageWanderers.TryGetValue(village, out wanderersAtSettlement))
                 {
+                    foreach (Hero wanderer in wanderersAtSettlement)
+                    {
+                        DeleteWanderer(wanderer);
+                    }
+
                     wanderersAtSettlement.Clear();
                     _existingVillageWanderers.Remove(village);
                 }
@@ -237,6 +243,13 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                     wanderersAtSettlement.Remove(hero);
             }
 
+        }
+
+        void DeleteWanderer(Hero hero)
+        {
+            hero.AddDeathMark(null, KillCharacterAction.KillCharacterActionDetail.Lost);
+            hero.ChangeState(Hero.CharacterStates.Dead);
+            typeof(CampaignObjectManager).GetMethod("UnregisterDeadHero", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(Campaign.Current.CampaignObjectManager, new object[] { hero });
         }
 
     }
