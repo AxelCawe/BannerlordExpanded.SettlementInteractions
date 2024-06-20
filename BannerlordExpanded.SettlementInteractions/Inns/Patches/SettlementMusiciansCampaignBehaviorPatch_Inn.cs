@@ -13,7 +13,7 @@ using TaleWorlds.ObjectSystem;
 
 namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Patches
 {
-    [HarmonyPatchCategory("HostPartyForSoldiersModule")]
+    [HarmonyPatchCategory("InnModule")]
     [HarmonyPatch(typeof(SettlementMusiciansCampaignBehavior), "OnMissionStarted")]
     public static class SettlementMusiciansCampaignBehaviorPatch_Inn
     {
