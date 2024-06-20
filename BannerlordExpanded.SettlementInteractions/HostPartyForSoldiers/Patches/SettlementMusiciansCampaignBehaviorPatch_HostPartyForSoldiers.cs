@@ -15,7 +15,8 @@ namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Patches
 {
     [HarmonyPatchCategory("HostPartyForSoldiersModule")]
     [HarmonyPatch(typeof(SettlementMusiciansCampaignBehavior), "OnMissionStarted")]
-    public static class SettlementMusiciansCampaignBehaviorPatch
+    public static class SettlementMusiciansCampaignBehaviorPatch_HostPartyForSoldiers
+
     {
         [HarmonyPostfix]
         static void Postfix(IMission mission)
