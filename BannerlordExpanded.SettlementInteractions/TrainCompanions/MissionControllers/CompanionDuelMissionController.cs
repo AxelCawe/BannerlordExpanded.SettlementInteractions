@@ -22,7 +22,8 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.MissionContr
         private Agent _duelAgent;
         private bool _duelWon;
 
-        static List<string> spawnPointTags = new List<string>() { "player_infantry_spawn", "player_cavalry_spawn", "sp_attacker_infantry", "attacker_infantry" };
+        //static List<string> spawnPointTags = new List<string>() { "sp_attacker_infantry", "attacker_infantry" };
+        static List<string> spawnPointTags = new List<string>() { "player_infantry_spawn", "player_cavalry_spawn", "sp_attacker_infantry", "attacker_infantry", "spawnpoint_player", "battle_set" };
 
         public CompanionDuelMissionController(
           CharacterObject duelCharacter,

@@ -21,9 +21,11 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
         float _trainingDurationLeft = 0f;
         Hero _companionInTraining = null;
 
+        List<string> _blacklistedScenes = new List<string>() { "battle_terrain_biome_030" };
+
         public override void RegisterEvents()
         {
-            CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, AddMenus);
+            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, AddMenus);
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -185,12 +187,24 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
         #region START_DUEl
         private void StartDuel()
         {
-            string scene;
+            string scene = "";
             var loc = PlayerEncounter.LocationEncounter;
             Settlement currentSettlement = Settlement.CurrentSettlement;
             //scene = currentSettlement.LocationComplex.GetLocationWithId("center").GetSceneName(currentSettlement.IsCastle ? currentSettlement.Town.GetWallLevel() : 1);
-            scene = PlayerEncounter.GetBattleSceneForMapPatch(Campaign.Current.MapSceneWrapper.GetMapPatchAtPosition(MobileParty.MainParty.Position2D));
-            CompanionDuelMission.OpenDuelMission(scene, _companionInTraining.CharacterObject, false);
+
+            int displacement = 0;
+            while (true)
+            {
+                scene = PlayerEncounter.GetBattleSceneForMapPatch(Campaign.Current.MapSceneWrapper.GetMapPatchAtPosition(MobileParty.MainParty.Position2D + new Vec2(displacement, displacement)));
+                if (!_blacklistedScenes.Contains(scene) && !scene.IsEmpty())
+                {
+                    CompanionDuelMission.OpenDuelMission(scene, _companionInTraining.CharacterObject, false);
+                    break;
+                }
+                ++displacement;
+
+            }
+
         }
 
         public void OnDuelEnd(bool playerVictory)
