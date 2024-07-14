@@ -1,5 +1,6 @@
 ﻿using BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.AgentOrigins;
@@ -21,6 +22,8 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.MissionContr
         private Agent _duelAgent;
         private bool _duelWon;
 
+        static List<string> spawnPointTags = new List<string>() { "player_infantry_spawn", "player_cavalry_spawn", "sp_attacker_infantry", "attacker_infantry" };
+
         public CompanionDuelMissionController(
           CharacterObject duelCharacter,
           bool spawnBothSidesWithHorses)
@@ -39,7 +42,8 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.MissionContr
             MatrixFrame playerSpawnFrame;
             MatrixFrame opponentSpawnFrame;
             //var attackerEntity = Mission.Current.Scene.FindEntityWithTag("spawnpoint_player");
-            var attackerEntity = Mission.Current.Scene.FindEntityWithTag("attacker_infantry") ?? Mission.Current.Scene.FindEntityWithName("sp_attacker_infantry"); ;
+            //var attackerEntity = Mission.Current.Scene.FindEntityWithTag("attacker_infantry") ?? Mission.Current.Scene.FindEntityWithName("sp_attacker_infantry"); ;
+            var attackerEntity = GetSpawnEntity();
 
             if (attackerEntity == null)
             {
@@ -146,5 +150,16 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.MissionContr
             opponentSpawnFrame.rotation.OrthonormalizeAccordingToForwardAndKeepUpAsZAxis();
         }
 
+
+        GameEntity GetSpawnEntity()
+        {
+            Scene currentScene = Mission.Current.Scene;
+            foreach (string tag in spawnPointTags)
+            {
+                GameEntity entity = currentScene.FindEntityWithTag(tag);
+                if (entity != null) return entity;
+            }
+            return null;
+        }
     }
 }
