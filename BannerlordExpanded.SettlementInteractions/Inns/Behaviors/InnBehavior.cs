@@ -23,13 +23,7 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
         public Action<Village> OnInnEntered;
         public Action<Village> OnInnLeft;
 
-        public static Location _inn = new Location("village_inn", new TextObject("{=BESI_Inn_GameMenu_Inn}Inn", null), new TextObject("{=BESI_Inn_GameMenu_Inn}Inn", null), 30, true, false, "CanAlways", "CanAlways", "CanAlways", "CanAlways", new string[]
-        {
-            "empire_house_c_tavern_a",
-            "empire_house_c_tavern_a",
-            "empire_house_c_tavern_a",
-            "empire_house_c_tavern_a"
-        }, null);
+        private Location _inn = null;
 
 
 
@@ -44,7 +38,6 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
             CampaignEvents.SettlementEntered.AddNonSerializedListener(this, new Action<MobileParty, Settlement, Hero>(OnSettlementEnter));
             CampaignEvents.OnSettlementLeftEvent.AddNonSerializedListener(this, new Action<MobileParty, Settlement>(OnSettlementLeft));
             CampaignEvents.AfterSettlementEntered.AddNonSerializedListener(this, new Action<MobileParty, Settlement, Hero>(OnAfterSettlementEnter));
-            CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnGameLoaded);
         }
 
         public override void SyncData(IDataStore dataStore)
@@ -53,16 +46,7 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
             //throw new NotImplementedException();
         }
 
-        void OnGameLoaded(CampaignGameStarter campaignGameStarter)
-        {
-            if (Campaign.Current.GetCampaignBehavior<InnBehavior>().IsInInn)
-            {
-                IsInInn = false;
-                //OnInnLeft.Invoke(Hero.MainHero.CurrentSettlement.Village);
-                GameMenu.SwitchToMenu("village");
-                //GlobalSettings<MCMSettings>.Instance.IsInInn = false;
-            }
-        }
+
 
         void OnAfterSettlementEnter(MobileParty party, Settlement settlement, Hero hero)
         {
@@ -76,52 +60,7 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
             if (settlement.IsVillage)
             {
                 //Location inn = settlement.LocationComplex.GetLocationWithId("village_inn");
-
-                FieldInfo field = LocationComplex.Current.GetType().GetField("_locations", BindingFlags.Instance | BindingFlags.NonPublic);
-                Dictionary<string, Location> dictionary = (Dictionary<string, Location>)field.GetValue(LocationComplex.Current);
-                if (dictionary.ContainsKey("village_inn"))
-                {
-                    dictionary.Remove("village_inn");
-                }
-                //_inn.RemoveAllCharacters();
-                _inn.SetOwnerComplex(settlement.LocationComplex);
-                switch (settlement.Culture.GetCultureCode())
-                {
-                    case CultureCode.Empire:
-                        _inn.SetSceneName(0, "empire_house_c_tavern_a");
-                        goto IL_14A;
-                    case CultureCode.Sturgia:
-                        _inn.SetSceneName(0, "sturgia_house_a_interior_tavern");
-                        goto IL_14A;
-                    case CultureCode.Aserai:
-                        _inn.SetSceneName(0, "arabian_house_new_c_interior_b_tavern");
-                        goto IL_14A;
-                    case CultureCode.Vlandia:
-                        _inn.SetSceneName(0, "vlandia_tavern_interior_a");
-                        goto IL_14A;
-                    case CultureCode.Khuzait:
-                        _inn.SetSceneName(0, "khuzait_tavern_a");
-                        goto IL_14A;
-                    case CultureCode.Battania:
-                        _inn.SetSceneName(0, "battania_tavern_interior_b");
-                        goto IL_14A;
-                }
-                _inn.SetSceneName(0, "empire_house_c_tavern_a");
-            IL_14A:
-
-                var allWanderers = Enumerable.Where<Hero>(settlement.HeroesWithoutParty, (Hero x) => x.IsWanderer && x.CompanionOf == null).ToList();
-                foreach (Hero wanderer in allWanderers)
-                {
-                    InnHelper.AddWandererLocationCharacter(wanderer, settlement, _inn);
-                    //settlement.LocationComplex.ChangeLocation(settlement.LocationComplex.GetFirstLocationCharacterOfCharacter(wanderer.CharacterObject), settlement.LocationComplex.GetLocationWithId("village_center"), _inn);
-                }
-
-                dictionary.Add("village_inn", _inn);
-                if (field != null)
-                {
-                    field.SetValue(LocationComplex.Current, dictionary);
-                }
-
+                SetupInn();
 
             }
         }
@@ -158,60 +97,7 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                 IsInInn = false;
             }, true, 5, false);
 
-            Settlement settlement = Settlement.CurrentSettlement;
-            if (settlement != null && settlement.IsVillage && LocationComplex.Current != null)
-            {
-                //Location inn = settlement.LocationComplex.GetLocationWithId("village_inn");
 
-
-
-                FieldInfo field = LocationComplex.Current.GetType().GetField("_locations", BindingFlags.Instance | BindingFlags.NonPublic);
-                Dictionary<string, Location> dictionary = (Dictionary<string, Location>)field.GetValue(LocationComplex.Current);
-                if (dictionary.ContainsKey("village_inn"))
-                {
-                    dictionary.Remove("village_inn");
-                }
-                //_inn.RemoveAllCharacters();
-                _inn.SetOwnerComplex(settlement.LocationComplex);
-                switch (settlement.Culture.GetCultureCode())
-                {
-                    case CultureCode.Empire:
-                        _inn.SetSceneName(0, "empire_house_c_tavern_a");
-                        goto IL_14A;
-                    case CultureCode.Sturgia:
-                        _inn.SetSceneName(0, "sturgia_house_a_interior_tavern");
-                        goto IL_14A;
-                    case CultureCode.Aserai:
-                        _inn.SetSceneName(0, "arabian_house_new_c_interior_b_tavern");
-                        goto IL_14A;
-                    case CultureCode.Vlandia:
-                        _inn.SetSceneName(0, "vlandia_tavern_interior_a");
-                        goto IL_14A;
-                    case CultureCode.Khuzait:
-                        _inn.SetSceneName(0, "khuzait_tavern_a");
-                        goto IL_14A;
-                    case CultureCode.Battania:
-                        _inn.SetSceneName(0, "battania_tavern_interior_b");
-                        goto IL_14A;
-                }
-                _inn.SetSceneName(0, "empire_house_c_tavern_a");
-            IL_14A:
-
-                var allWanderers = Enumerable.Where<Hero>(settlement.HeroesWithoutParty, (Hero x) => x.IsWanderer && x.CompanionOf == null).ToList();
-                foreach (Hero wanderer in allWanderers)
-                {
-                    InnHelper.AddWandererLocationCharacter(wanderer, settlement, _inn);
-                    //settlement.LocationComplex.ChangeLocation(settlement.LocationComplex.GetFirstLocationCharacterOfCharacter(wanderer.CharacterObject), settlement.LocationComplex.GetLocationWithId("village_center"), _inn);
-                }
-
-                dictionary.Add("village_inn", _inn);
-                if (field != null)
-                {
-                    field.SetValue(LocationComplex.Current, dictionary);
-                }
-
-
-            }
         }
 
         #region INN_LOCATION_FUNCS
@@ -262,7 +148,7 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                     scenes = "empire_house_c_tavern_a";
                     break;
             }
-            SetScenes(scenes);
+            //Campaign.Current.GetCampaignBehavior<InnBehavior>().SetScenes(scenes);
 
             args.MenuTitle = new TextObject("{=BESI_Inn_GameMenu_Inn}Inn", null);
         }
@@ -273,8 +159,10 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
             return true;
         }
 
-        private static void VisitInnOnConsequence(MenuCallbackArgs args)
+        private void VisitInnOnConsequence(MenuCallbackArgs args)
         {
+            if (_inn == null && Campaign.Current.CurrentMenuContext.GameMenu.StringId == "village_inn")
+                SetupInn();
             OpenMissionWithSettingPreviousLocation("village_center", "village_inn");
         }
 
@@ -293,12 +181,73 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
             return true;
         }
 
-        private static void SetScenes(string SceneName)
+        private void SetScenes(string SceneName)
         {
             for (int i = 0; i < 4; i++)
             {
                 _inn.SetSceneName(i, SceneName);
             }
+        }
+
+        private void SetupInn()
+        {
+            if (_inn == null)
+            {
+                _inn = new Location("village_inn", new TextObject("{=BESI_Inn_GameMenu_Inn}Inn", null), new TextObject("{=BESI_Inn_GameMenu_Inn}Inn", null), 30, true, false, "CanAlways", "CanAlways", "CanAlways", "CanAlways", new string[]
+                    {
+                "empire_house_c_tavern_a",
+                "empire_house_c_tavern_a",
+                "empire_house_c_tavern_a",
+                "empire_house_c_tavern_a"
+                }, null);
+            }
+
+            Settlement settlement = Settlement.CurrentSettlement;
+            FieldInfo field = LocationComplex.Current.GetType().GetField("_locations", BindingFlags.Instance | BindingFlags.NonPublic);
+            Dictionary<string, Location> dictionary = (Dictionary<string, Location>)field.GetValue(LocationComplex.Current);
+            if (dictionary.ContainsKey("village_inn"))
+            {
+                dictionary.Remove("village_inn");
+            }
+            //_inn.RemoveAllCharacters();
+            _inn.SetOwnerComplex(settlement.LocationComplex);
+            switch (settlement.Culture.GetCultureCode())
+            {
+                case CultureCode.Empire:
+                    _inn.SetSceneName(0, "empire_house_c_tavern_a");
+                    goto IL_14A;
+                case CultureCode.Sturgia:
+                    _inn.SetSceneName(0, "sturgia_house_a_interior_tavern");
+                    goto IL_14A;
+                case CultureCode.Aserai:
+                    _inn.SetSceneName(0, "arabian_house_new_c_interior_b_tavern");
+                    goto IL_14A;
+                case CultureCode.Vlandia:
+                    _inn.SetSceneName(0, "vlandia_tavern_interior_a");
+                    goto IL_14A;
+                case CultureCode.Khuzait:
+                    _inn.SetSceneName(0, "khuzait_tavern_a");
+                    goto IL_14A;
+                case CultureCode.Battania:
+                    _inn.SetSceneName(0, "battania_tavern_interior_b");
+                    goto IL_14A;
+            }
+            _inn.SetSceneName(0, "empire_house_c_tavern_a");
+        IL_14A:
+
+            var allWanderers = Enumerable.Where<Hero>(settlement.HeroesWithoutParty, (Hero x) => x.IsWanderer && x.CompanionOf == null).ToList();
+            foreach (Hero wanderer in allWanderers)
+            {
+                InnHelper.AddWandererLocationCharacter(wanderer, settlement, _inn);
+                //settlement.LocationComplex.ChangeLocation(settlement.LocationComplex.GetFirstLocationCharacterOfCharacter(wanderer.CharacterObject), settlement.LocationComplex.GetLocationWithId("village_center"), _inn);
+            }
+
+            dictionary.Add("village_inn", _inn);
+            if (field != null)
+            {
+                field.SetValue(LocationComplex.Current, dictionary);
+            }
+
         }
 
         private void CleanUpInn()
