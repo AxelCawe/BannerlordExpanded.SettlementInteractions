@@ -7,7 +7,7 @@
     <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
     <BuildForWindows>false</BuildForWindows>
-    <BuildForWindowsStore>false</BuildForWindowsStore>
+    <BuildForWindowsStore>true</BuildForWindowsStore>
     <ModuleId>$(MSBuildProjectName)</ModuleId>
     <ModuleName>Bannerlord Expanded - Settlement Interactions</ModuleName>
     <ModuleUrl></ModuleUrl>
