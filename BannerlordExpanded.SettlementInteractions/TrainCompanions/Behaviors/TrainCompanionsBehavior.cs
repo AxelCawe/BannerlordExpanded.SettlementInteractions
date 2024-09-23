@@ -21,7 +21,7 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
         float _trainingDurationLeft = 0f;
         Hero _companionInTraining = null;
 
-        List<string> _blacklistedScenes = new List<string>() { "battle_terrain_biome_030" };
+        List<string> _blacklistedScenes = new List<string>() { "battle_terrain_biome_030", "battle_terrain_biome_087b" };
 
         public override void RegisterEvents()
         {
