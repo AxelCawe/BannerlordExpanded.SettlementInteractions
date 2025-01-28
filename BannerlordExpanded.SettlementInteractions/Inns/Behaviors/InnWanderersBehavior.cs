@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
+using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
@@ -149,6 +150,7 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                     //InformationManager.DisplayMessage(new InformationMessage("Adding..."));
                     wanderer.ChangeState(Hero.CharacterStates.Active);
                     EnterSettlementAction.ApplyForCharacterOnly(wanderer, village.Settlement);
+
                     //LocationCharacter locCharacter =village.Settlement.LocationComplex.GetLocationCharacterOfHero(wanderer);
                     //locCharacter.IsHidden = false;
                 }
@@ -169,8 +171,9 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                     {
                         //LocationCharacter locCharacter = village.Settlement.LocationComplex.GetLocationCharacterOfHero(wanderer);
                         //locCharacter.IsHidden = false;
+                        LeaveSettlementAction.ApplyForCharacterOnly(wanderer);
                         wanderer.ChangeState(Hero.CharacterStates.NotSpawned);
-                        //LeaveSettlementAction.ApplyForCharacterOnly(wanderer);
+
                     }
                     else
                         hiredWanderers.Add(wanderer);
@@ -249,6 +252,8 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
         {
             hero.AddDeathMark(null, KillCharacterAction.KillCharacterActionDetail.Lost);
             hero.ChangeState(Hero.CharacterStates.Dead);
+            CompanionsCampaignBehavior behavior = Campaign.Current.GetCampaignBehavior<CompanionsCampaignBehavior>();
+            typeof(CompanionsCampaignBehavior).GetMethod("RemoveFromAliveCompanions", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(behavior, new object[] { hero });
             typeof(CampaignObjectManager).GetMethod("UnregisterDeadHero", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(Campaign.Current.CampaignObjectManager, new object[] { hero });
         }
 
