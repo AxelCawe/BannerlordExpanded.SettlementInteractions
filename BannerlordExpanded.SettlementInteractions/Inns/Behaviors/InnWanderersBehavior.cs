@@ -167,7 +167,7 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                 List<Hero> hiredWanderers = new List<Hero>();
                 foreach (Hero wanderer in wanderersAtSettlement)
                 {
-                    if (!wanderer.IsPlayerCompanion)
+                    if (!wanderer.IsPlayerCompanion && wanderer.CurrentSettlement != null)
                     {
                         //LocationCharacter locCharacter = village.Settlement.LocationComplex.GetLocationCharacterOfHero(wanderer);
                         //locCharacter.IsHidden = false;
