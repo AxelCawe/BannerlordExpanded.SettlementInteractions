@@ -144,6 +144,18 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
         {
             args.optionLeaveType = GameMenuOption.LeaveType.PracticeFight;
 
+            bool availableMembersToTrain = false;
+            {
+                foreach (Hero hero in Clan.PlayerClan.Heroes)
+                {
+                    if (AvailableToTrain(hero))
+                    {
+                        availableMembersToTrain = true;
+                        break;
+                    }
+                }
+            }
+
             if (Hero.MainHero.CompanionsInParty.Count() == 0)
             {
                 args.IsEnabled = false;
@@ -167,7 +179,7 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
             List<InquiryElement> selectableCompanions = new List<InquiryElement>();
             foreach (Hero hero in Campaign.Current.AliveHeroes)
             {
-                if (hero.Clan == Hero.MainHero.Clan && hero.PartyBelongedTo != null && hero.PartyBelongedTo == MobileParty.MainParty && hero != Hero.MainHero)
+                if (AvailableToTrain(hero))
                     selectableCompanions.Add(new InquiryElement(hero.Id, hero.Name.ToString(), new ImageIdentifier(CharacterCode.CreateFrom(hero.CharacterObject))));
             }
 
@@ -179,6 +191,11 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
                                                                                         , new TextObject("{=BESI_TrainCompanions_StartTraining_ChooseCompanionCancel}Cancel").ToString()
                                                                                         , (List<InquiryElement> elements) => { Hero companion = Hero.FindFirst(H => H.Id == (MBGUID)elements[0].Identifier); Campaign.Current.GetCampaignBehavior<TrainCompanionsBehavior>().StartTraining(companion); }
                                                                                         , (List<InquiryElement> elements) => { GameMenu.SwitchToMenu("castle"); }));
+        }
+
+        static bool AvailableToTrain(Hero hero)
+        {
+            return (hero.Clan == Hero.MainHero.Clan && hero.PartyBelongedTo != null && hero.PartyBelongedTo == MobileParty.MainParty && hero != Hero.MainHero);
         }
 
         #endregion
