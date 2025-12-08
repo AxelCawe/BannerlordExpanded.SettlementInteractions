@@ -93,12 +93,11 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
         void InitializeCompanionTemplates()
         {
             _allCompanionTemplates = new MBList<CharacterObject>();
-            foreach (CultureObject cultureObject in MBObjectManager.Instance.GetObjectTypeList<CultureObject>())
+            foreach (CharacterObject characterObject in MBObjectManager.Instance.GetObjectTypeList<CharacterObject>())
             {
-                foreach (CharacterObject characterObject in cultureObject.NotableAndWandererTemplates)
+                if (characterObject.IsTemplate && characterObject.Occupation == Occupation.Wanderer)
                 {
-                    if (characterObject.Occupation == Occupation.Wanderer)
-                        _allCompanionTemplates.Add(characterObject);
+                    _allCompanionTemplates.Add(characterObject);
                 }
             }
         }

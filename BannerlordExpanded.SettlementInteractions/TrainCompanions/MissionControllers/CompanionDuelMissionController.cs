@@ -63,7 +63,7 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.MissionContr
             if (!_duelHasEnded)
                 return;
             GameTexts.SetVariable("leave_key", Game.Current.GameTextManager.GetHotKeyGameTextFromKeyID(HotKeyManager.GetAllCategories().FirstOrDefault(r => r.GameKeyCategoryId == "Generic").RegisteredGameKeys[4].KeyboardKey.ToString()).ToString());
-            MBInformationManager.AddQuickInformation(GameTexts.FindText("str_duel_has_ended", null), 0, null, "");
+            MBInformationManager.AddQuickInformation(GameTexts.FindText("str_duel_has_ended", null), 0, null, null, "");
             _duelEndTimer.Reset();
         }
 
@@ -105,9 +105,9 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.MissionContr
             Agent agent = mission.SpawnAgent(agentBuildData3, false);
             agent.FadeIn();
             if (character == CharacterObject.PlayerCharacter)
-                agent.Controller = (Agent.ControllerType)2;
+                agent.Controller = AgentControllerType.Player;
             else
-                agent.Controller = Agent.ControllerType.AI;
+                agent.Controller = AgentControllerType.AI;
             if (agent.IsAIControlled)
             {
                 agent.SetWatchState(Agent.WatchState.Alarmed);

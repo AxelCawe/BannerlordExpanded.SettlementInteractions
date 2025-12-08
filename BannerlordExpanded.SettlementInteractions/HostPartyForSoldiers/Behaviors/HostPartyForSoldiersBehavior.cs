@@ -41,7 +41,7 @@ namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Behavio
                                         (MenuCallbackArgs args) => { args.MenuContext.GameMenu.StartWait(); GameMenu.SwitchToMenu("besi_castle_hostpartyforsoldiers_preparationfinished"); PartyRoomMenuSoundOnInit(args); },
                                         OnPreparationTick,
                                         type: GameMenu.MenuAndOptionType.WaitMenuShowOnlyProgressOption,
-                                        overlay: TaleWorlds.CampaignSystem.Overlay.GameOverlays.MenuOverlayType.None,
+                                        overlay: GameMenu.MenuOverlayType.None,
                                         targetWaitHours: MCMSettings.Instance.HostPartyPreparationHours
                                         );
 

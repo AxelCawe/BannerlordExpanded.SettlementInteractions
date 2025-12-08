@@ -96,7 +96,7 @@ namespace BannerlordExpanded.StartYourOwnTournaments.Behaviors
                 return false;
             if (Settlement.CurrentSettlement.Town.OwnerClan == Clan.PlayerClan
                 || Settlement.CurrentSettlement.Town.OwnerClan == null
-                || (Settlement.CurrentSettlement.Town.OwnerClan.Kingdom != null && Clan.PlayerClan.Kingdom != null && (Settlement.CurrentSettlement.Town.OwnerClan.Kingdom == Clan.PlayerClan.Kingdom || FactionManager.IsAlliedWithFaction(Settlement.CurrentSettlement.Town.OwnerClan, Clan.PlayerClan)))) // check if player is in same kingdom as the owner
+                || (Settlement.CurrentSettlement.Town.OwnerClan.Kingdom != null && Clan.PlayerClan.Kingdom != null && (Settlement.CurrentSettlement.Town.OwnerClan.Kingdom == Clan.PlayerClan.Kingdom || FactionManager.IsNeutralWithFaction(Settlement.CurrentSettlement.Town.OwnerClan, Clan.PlayerClan)))) // check if player is in same kingdom as the owner
             {
                 if (Clan.PlayerClan.Influence < GlobalSettings<MCMSettings>.Instance.InfluenceCostToStartTournament)
                 {

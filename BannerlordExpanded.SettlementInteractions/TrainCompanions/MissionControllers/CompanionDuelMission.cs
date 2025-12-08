@@ -20,10 +20,10 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.MissionContr
           bool doNotUseLoadingScreen = false)
         {
             MissionInitializerRecord initializerRecord = new MissionInitializerRecord(sceneName);
-            initializerRecord.DamageToPlayerMultiplier = Campaign.Current.Models.DifficultyModel.GetDamageToPlayerMultiplier();
+            //initializerRecord.DamageToPlayerMultiplier = Campaign.Current.Models.DifficultyModel.GetDamageToPlayerMultiplier();
             initializerRecord.DamageToFriendsMultiplier = Campaign.Current.Models.DifficultyModel.GetPlayerTroopsReceivedDamageMultiplier();
             initializerRecord.PlayingInCampaignMode = Campaign.Current.GameMode == CampaignGameMode.Campaign;
-            initializerRecord.AtmosphereOnCampaign = Campaign.Current.Models.MapWeatherModel.GetAtmosphereModel(MobileParty.MainParty.GetLogicalPosition());
+            initializerRecord.AtmosphereOnCampaign = Campaign.Current.Models.MapWeatherModel.GetAtmosphereModel(MobileParty.MainParty.Position);
             initializerRecord.SceneLevels = sceneLevels;
             initializerRecord.DoNotUseLoadingScreen = doNotUseLoadingScreen;
             return initializerRecord;

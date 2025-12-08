@@ -8,7 +8,6 @@ using TaleWorlds.CampaignSystem.AgentOrigins;
 using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.CampaignSystem.Encounters;
 using TaleWorlds.CampaignSystem.GameMenus;
-using TaleWorlds.CampaignSystem.Overlay;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.CampaignSystem.Settlements.Locations;
@@ -87,7 +86,7 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                 IsInInn = true;
                 //GlobalSettings<MCMSettings>.Instance.IsInInn = true;
             }, false, 1, false);
-            campaignGameStarter.AddGameMenu("village_inn", "{=BESI_Inn_GameMenu_InInn}You are in the village inn", new OnInitDelegate(VillageInnOnInit), GameOverlays.MenuOverlayType.SettlementWithCharacters, GameMenu.MenuFlags.None, null);
+            campaignGameStarter.AddGameMenu("village_inn", "{=BESI_Inn_GameMenu_InInn}You are in the village inn", new OnInitDelegate(VillageInnOnInit), GameMenu.MenuOverlayType.SettlementWithCharacters, GameMenu.MenuFlags.None, null);
             campaignGameStarter.AddGameMenuOption("village_inn", "village_inn_visit", "{=BESI_Inn_GameMenu_VisitTheInn}Visit the inn", new GameMenuOption.OnConditionDelegate(VisitInnOnCondition), new GameMenuOption.OnConsequenceDelegate(VisitInnOnConsequence), false, 0, false);
             campaignGameStarter.AddGameMenuOption("village_inn", "village_inn_back", "{=BESI_Inn_GameMenu_Back}Back to village", new GameMenuOption.OnConditionDelegate(BackOnCondition), delegate
             {
@@ -124,25 +123,28 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
             args.MenuContext.SetBackgroundMeshName(backgroundMeshName);
             //_inn.SetOwnerComplex(settlement.LocationComplex);
             string scenes;
-            switch (settlement.Culture.GetCultureCode())
+            switch (settlement.Culture.StringId)
             {
-                case CultureCode.Empire:
+                case CampaignData.CultureEmpire:
                     scenes = "empire_house_c_tavern_a";
                     break;
-                case CultureCode.Sturgia:
+                case CampaignData.CultureSturgia:
                     scenes = "sturgia_house_b_interior_tavern";
                     break;
-                case CultureCode.Aserai:
+                case CampaignData.CultureAserai:
                     scenes = "arabian_house_new_c_interior_c_tavern";
                     break;
-                case CultureCode.Vlandia:
+                case CampaignData.CultureVlandia:
                     scenes = "vlandia_tavern_interior_a";
                     break;
-                case CultureCode.Khuzait:
+                case CampaignData.CultureKhuzait:
                     scenes = "khuzait_house_g_interior_a_tavern";
                     break;
-                case CultureCode.Battania:
+                case CampaignData.CultureBattania:
                     scenes = "battania_tavern_interior_b";
+                    break;
+                case CampaignData.CultureNord:
+                    scenes = "empire_house_c_tavern_a";
                     break;
                 default:
                     scenes = "empire_house_c_tavern_a";
@@ -211,29 +213,35 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
             }
             //_inn.RemoveAllCharacters();
             _inn.SetOwnerComplex(settlement.LocationComplex);
-            switch (settlement.Culture.GetCultureCode())
+            string scenes;
+            switch (settlement.Culture.StringId)
             {
-                case CultureCode.Empire:
-                    _inn.SetSceneName(0, "empire_house_c_tavern_a");
-                    goto IL_14A;
-                case CultureCode.Sturgia:
-                    _inn.SetSceneName(0, "sturgia_house_a_interior_tavern");
-                    goto IL_14A;
-                case CultureCode.Aserai:
-                    _inn.SetSceneName(0, "arabian_house_new_c_interior_b_tavern");
-                    goto IL_14A;
-                case CultureCode.Vlandia:
-                    _inn.SetSceneName(0, "vlandia_tavern_interior_a");
-                    goto IL_14A;
-                case CultureCode.Khuzait:
-                    _inn.SetSceneName(0, "khuzait_tavern_a");
-                    goto IL_14A;
-                case CultureCode.Battania:
-                    _inn.SetSceneName(0, "battania_tavern_interior_b");
-                    goto IL_14A;
+                case CampaignData.CultureEmpire:
+                    scenes = "empire_house_c_tavern_a";
+                    break;
+                case CampaignData.CultureSturgia:
+                    scenes = "sturgia_house_b_interior_tavern";
+                    break;
+                case CampaignData.CultureAserai:
+                    scenes = "arabian_house_new_c_interior_c_tavern";
+                    break;
+                case CampaignData.CultureVlandia:
+                    scenes = "vlandia_tavern_interior_a";
+                    break;
+                case CampaignData.CultureKhuzait:
+                    scenes = "khuzait_house_g_interior_a_tavern";
+                    break;
+                case CampaignData.CultureBattania:
+                    scenes = "battania_tavern_interior_b";
+                    break;
+                case CampaignData.CultureNord:
+                    scenes = "empire_house_c_tavern_a";
+                    break;
+                default:
+                    scenes = "empire_house_c_tavern_a";
+                    break;
             }
-            _inn.SetSceneName(0, "empire_house_c_tavern_a");
-        IL_14A:
+            _inn.SetSceneName(0, scenes);
 
             var allWanderers = Enumerable.Where<Hero>(settlement.HeroesWithoutParty, (Hero x) => x.IsWanderer && x.CompanionOf == null).ToList();
             foreach (Hero wanderer in allWanderers)

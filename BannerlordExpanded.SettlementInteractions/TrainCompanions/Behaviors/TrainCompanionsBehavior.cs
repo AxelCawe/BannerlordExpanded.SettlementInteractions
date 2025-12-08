@@ -10,6 +10,7 @@ using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
@@ -69,7 +70,7 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
                                         (MenuCallbackArgs args) => { args.MenuContext.GameMenu.StartWait(); OnStopTraining(); },
                                         OnTrainingTick,
                                         type: GameMenu.MenuAndOptionType.WaitMenuShowOnlyProgressOption,
-                                        overlay: TaleWorlds.CampaignSystem.Overlay.GameOverlays.MenuOverlayType.None,
+                                        overlay: GameMenu.MenuOverlayType.None,
                                         targetWaitHours: MCMSettings.Instance.CompanionTrainingHours
                                         );
             gameStarter.AddGameMenuOption("besi_castle_companiontraining_inprogress", "besi_castle_companiontraining_inprogress_back", "{=BESI_TrainCompanions_Back}Back", back_on_condition, (MenuCallbackArgs args) => { GameMenu.SwitchToMenu("besi_castle_companiontraining"); }, true);
@@ -168,7 +169,7 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
             foreach (Hero hero in Campaign.Current.AliveHeroes)
             {
                 if (hero.Clan == Hero.MainHero.Clan && hero.PartyBelongedTo != null && hero.PartyBelongedTo == MobileParty.MainParty && hero != Hero.MainHero)
-                    selectableCompanions.Add(new InquiryElement(hero.Id, hero.Name.ToString(), new ImageIdentifier(CharacterCode.CreateFrom(hero.CharacterObject))));
+                    selectableCompanions.Add(new InquiryElement(hero.Id, hero.Name.ToString(), new CharacterImageIdentifier(CharacterCode.CreateFrom(hero.CharacterObject))));
             }
 
             MBInformationManager.ShowMultiSelectionInquiry(new MultiSelectionInquiryData(new TextObject("{=BESI_TrainCompanions_StartTraining_ChooseCompanionTitle}Your Companions").ToString()
@@ -195,7 +196,7 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
             int displacement = 0;
             while (true)
             {
-                scene = PlayerEncounter.GetBattleSceneForMapPatch(Campaign.Current.MapSceneWrapper.GetMapPatchAtPosition(MobileParty.MainParty.Position2D + new Vec2(displacement, displacement)));
+                scene = Campaign.Current.Models.SceneModel.GetBattleSceneForMapPatch(Campaign.Current.MapSceneWrapper.GetMapPatchAtPosition(MobileParty.MainParty.Position + new Vec2(displacement, displacement)), false);
                 if (!_blacklistedScenes.Contains(scene) && !scene.IsEmpty())
                 {
                     CompanionDuelMission.OpenDuelMission(scene, _companionInTraining.CharacterObject, false);

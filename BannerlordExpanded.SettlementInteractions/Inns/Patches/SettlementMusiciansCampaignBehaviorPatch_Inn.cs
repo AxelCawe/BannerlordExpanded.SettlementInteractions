@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Encounters;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.ObjectSystem;
-
 namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Patches
 {
     [HarmonyPatchCategory("InnModule")]
@@ -40,8 +41,8 @@ namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Patches
             List<string> listOfLocationTags = new List<string>();
             string stringId = CampaignMission.Current.Location.StringId;
 
+            listOfLocationTags.Add("lordshall");
             listOfLocationTags.Add("tavern");
-            //listOfLocationTags.Add("lordshall");
 
             Dictionary<CultureObject, float> dictionary = new Dictionary<CultureObject, float>();
             List<CultureObject> objectTypeList = MBObjectManager.Instance.GetObjectTypeList<CultureObject>();
@@ -70,7 +71,7 @@ namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Patches
                         {
                             return 0f;
                         }
-                        return k.TotalStrength;
+                        return k.CurrentTotalStrength;
                     });
                     if (num4 > num3)
                     {
@@ -80,10 +81,10 @@ namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Patches
             }
             foreach (Kingdom kingdom in Kingdom.All)
             {
-                float num5 = (Campaign.MapDiagonal - Campaign.Current.Models.MapDistanceModel.GetDistance(kingdom.FactionMidSettlement, settlement.MapFaction.FactionMidSettlement)) / Campaign.MaximumDistanceBetweenTwoSettlements;
+                float num5 = (Campaign.MapDiagonal - Campaign.Current.Models.MapDistanceModel.GetDistance(kingdom.FactionMidSettlement, settlement.MapFaction.FactionMidSettlement, false, false, MobileParty.NavigationType.All)) / Campaign.Current.Models.MapDistanceModel.GetMaximumDistanceBetweenTwoConnectedSettlements(MobileParty.NavigationType.All);
                 float num6 = num5 * num5 * num5 * 2f;
                 num6 += (settlement.MapFaction.IsAtWarWith(kingdom) ? 1f : 2f) * num2;
-                dictionary[kingdom.Culture] = TaleWorlds.Library.MathF.Max(dictionary[kingdom.Culture], num6);
+                dictionary[kingdom.Culture] = MathF.Max(dictionary[kingdom.Culture], num6);
             }
             Dictionary<CultureObject, float> dictionary2;
             CultureObject culture;
@@ -91,13 +92,13 @@ namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Patches
             {
                 dictionary2 = dictionary;
                 culture = kingdom2.Culture;
-                dictionary2[culture] += kingdom2.TotalStrength / num3 * 0.5f;
+                dictionary2[culture] += kingdom2.CurrentTotalStrength / num3 * 0.5f;
             }
             foreach (Town town2 in Town.AllTowns)
             {
-                float num7 = (Campaign.MapDiagonal - Campaign.Current.Models.MapDistanceModel.GetDistance(settlement, town2.Settlement)) / Campaign.MapDiagonal;
+                float num7 = (Campaign.MapDiagonal - Campaign.Current.Models.MapDistanceModel.GetDistance(settlement, town2.Settlement, false, false, (settlement.HasPort && town2.Settlement.HasPort) ? MobileParty.NavigationType.All : MobileParty.NavigationType.Default)) / Campaign.MapDiagonal;
                 float num8 = num7 * num7 * num7;
-                num8 *= TaleWorlds.Library.MathF.Min(town2.Prosperity, 5000f) * 0.0002f;
+                num8 *= MathF.Min(town2.Prosperity, 5000f) * 0.0002f;
                 dictionary2 = dictionary;
                 culture = town2.Culture;
                 dictionary2[culture] += num8;
@@ -111,9 +112,7 @@ namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Patches
             List<SettlementMusicData> list = (from x in MBObjectManager.Instance.GetObjectTypeList<SettlementMusicData>()
                                               where listOfLocationTags.Contains(x.LocationId)
                                               select x).ToList<SettlementMusicData>();
-
-            KeyValuePair<CultureObject, float> maxWeightedCulture = TaleWorlds.Core.Extensions.MaxBy((IEnumerable<KeyValuePair<CultureObject, float>>)dictionary, (KeyValuePair<CultureObject, float> x) => x.Value);
-
+            KeyValuePair<CultureObject, float> maxWeightedCulture = TaleWorlds.Core.Extensions.MaxBy(dictionary, x => x.Value);
             float num9 = (float)list.Count((SettlementMusicData x) => x.Culture == maxWeightedCulture.Key) / maxWeightedCulture.Value;
             List<SettlementMusicData> list2 = new List<SettlementMusicData>();
             foreach (KeyValuePair<CultureObject, float> keyValuePair in dictionary)
@@ -129,7 +128,6 @@ namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Patches
                 list2 = list;
             }
             list2.Shuffle<SettlementMusicData>();
-
             return list2;
         }
 
