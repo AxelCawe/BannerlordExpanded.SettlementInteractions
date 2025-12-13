@@ -14,6 +14,8 @@ namespace BannerlordExpanded.SettlementInteractions
 {
     public class SubModule : MBSubModuleBase
     {
+        bool harmonyPatched = false;
+
         protected override void OnSubModuleLoad()
         {
             base.OnSubModuleLoad();
@@ -29,11 +31,16 @@ namespace BannerlordExpanded.SettlementInteractions
         protected override void OnBeforeInitialModuleScreenSetAsRoot()
         {
             base.OnBeforeInitialModuleScreenSetAsRoot();
-            Harmony harmony = new Harmony("BannerlordExpanded.SettlementInteractions");
-            if (MCMSettings.Instance.IsInnEnabled)
-                harmony.PatchCategory(Assembly.GetExecutingAssembly(), "InnModule");
-            if (MCMSettings.Instance.HostPartyEnabled)
-                harmony.PatchCategory(Assembly.GetExecutingAssembly(), "HostPartyForSoldiersModule");
+            if (!harmonyPatched)
+            {
+                Harmony harmony = new Harmony("BannerlordExpanded.SettlementInteractions");
+                if (MCMSettings.Instance.IsInnEnabled)
+                    harmony.PatchCategory(Assembly.GetExecutingAssembly(), "InnModule");
+                if (MCMSettings.Instance.HostPartyEnabled)
+                    harmony.PatchCategory(Assembly.GetExecutingAssembly(), "HostPartyForSoldiersModule");
+
+                harmonyPatched = true;
+            }
         }
         protected override void OnGameStart(Game game, IGameStarter gameStarter)
         {
