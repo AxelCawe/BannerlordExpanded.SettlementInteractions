@@ -102,8 +102,13 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
         #region INN_LOCATION_FUNCS
         public static bool CanGoInnOnCondition(MenuCallbackArgs args)
         {
-            SettlementAccessModel settlementAccessModel = Campaign.Current.Models.SettlementAccessModel;
             Settlement currentSettlement = Settlement.CurrentSettlement;
+            if (currentSettlement == null || currentSettlement.Village == null)
+            {
+                return false;
+            }
+
+            SettlementAccessModel settlementAccessModel = Campaign.Current.Models.SettlementAccessModel;
             SettlementAccessModel.AccessDetails accessDetails;
             settlementAccessModel.CanMainHeroEnterSettlement(currentSettlement, out accessDetails);
             if (accessDetails.AccessLevel == SettlementAccessModel.AccessLevel.NoAccess && accessDetails.AccessLimitationReason == SettlementAccessModel.AccessLimitationReason.VillageIsLooted)
