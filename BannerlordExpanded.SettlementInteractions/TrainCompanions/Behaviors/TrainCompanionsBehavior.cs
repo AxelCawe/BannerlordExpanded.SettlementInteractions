@@ -145,7 +145,13 @@ namespace BannerlordExpanded.SettlementInteractions.TrainCompanions.Behaviors
         {
             args.optionLeaveType = GameMenuOption.LeaveType.PracticeFight;
 
-            if (Hero.MainHero.CompanionsInParty.Count() == 0)
+            List<InquiryElement> selectableCompanions = new List<InquiryElement>();
+            foreach (Hero hero in Campaign.Current.AliveHeroes)
+            {
+                if (hero.Clan == Hero.MainHero.Clan && hero.PartyBelongedTo != null && hero.PartyBelongedTo == MobileParty.MainParty && hero != Hero.MainHero)
+                    selectableCompanions.Add(new InquiryElement(hero.Id, hero.Name.ToString(), new CharacterImageIdentifier(CharacterCode.CreateFrom(hero.CharacterObject))));
+            }
+            if (selectableCompanions.Count() == 0)
             {
                 args.IsEnabled = false;
                 args.Tooltip = new TextObject("{=BESI_TrainCompanions_StartTraining_Rejected_NoCompanions}You have no companions to train!");
