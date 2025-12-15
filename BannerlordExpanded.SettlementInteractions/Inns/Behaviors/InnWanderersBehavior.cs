@@ -113,7 +113,8 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                 {
                     foreach (Hero wanderer in wanderersAtSettlement)
                     {
-                        DeleteWanderer(wanderer);
+                        if (!wanderer.IsPlayerCompanion)
+                            DeleteWanderer(wanderer);
                     }
 
                     wanderersAtSettlement.Clear();
