@@ -61,7 +61,10 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
         void OnGameLoaded(CampaignGameStarter gameStarter)
         {
             InitializeCompanionTemplates();
-
+            if (Settlement.CurrentSettlement != null && Settlement.CurrentSettlement.IsVillage)
+            {
+                ActivateInnWanderersAtVillage(Settlement.CurrentSettlement.Village);
+            }
 
         }
 
@@ -179,10 +182,6 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                         hiredWanderers.Add(wanderer);
 
                 }
-
-                foreach (Hero hiredWanderer in hiredWanderers)
-                    wanderersAtSettlement.Remove(hiredWanderer);
-
 
             }
         }
