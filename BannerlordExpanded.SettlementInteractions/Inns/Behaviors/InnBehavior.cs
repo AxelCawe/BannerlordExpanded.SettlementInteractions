@@ -12,6 +12,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.CampaignSystem.Settlements.Locations;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using FaceGen = TaleWorlds.Core.FaceGen;
 
@@ -102,21 +103,29 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
         #region INN_LOCATION_FUNCS
         public static bool CanGoInnOnCondition(MenuCallbackArgs args)
         {
-            Settlement currentSettlement = Settlement.CurrentSettlement;
-            if (currentSettlement == null || currentSettlement.Village == null)
+            try
             {
-                return false;
-            }
+                Settlement currentSettlement = Settlement.CurrentSettlement;
+                if (currentSettlement == null || currentSettlement.Village == null)
+                {
+                    return false;
+                }
 
-            SettlementAccessModel settlementAccessModel = Campaign.Current.Models.SettlementAccessModel;
-            SettlementAccessModel.AccessDetails accessDetails;
-            settlementAccessModel.CanMainHeroEnterSettlement(currentSettlement, out accessDetails);
-            if (accessDetails.AccessLevel == SettlementAccessModel.AccessLevel.NoAccess && accessDetails.AccessLimitationReason == SettlementAccessModel.AccessLimitationReason.VillageIsLooted)
+                SettlementAccessModel settlementAccessModel = Campaign.Current.Models.SettlementAccessModel;
+                SettlementAccessModel.AccessDetails accessDetails;
+                settlementAccessModel.CanMainHeroEnterSettlement(currentSettlement, out accessDetails);
+                if (accessDetails.AccessLevel == SettlementAccessModel.AccessLevel.NoAccess && accessDetails.AccessLimitationReason == SettlementAccessModel.AccessLimitationReason.VillageIsLooted)
+                {
+                    return false;
+                }
+                args.optionLeaveType = GameMenuOption.LeaveType.Submenu;
+                return true;
+            }
+            catch
             {
+                InformationManager.DisplayMessage(new InformationMessage("[BE-SI]: Error in CanGoInnOnCondition. Potential mod conflict or vanilla bug detected."));
                 return false;
             }
-            args.optionLeaveType = GameMenuOption.LeaveType.Submenu;
-            return true;
         }
 
         private static void VillageInnOnInit(MenuCallbackArgs args)
