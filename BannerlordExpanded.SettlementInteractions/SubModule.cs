@@ -7,6 +7,7 @@ using HarmonyLib;
 using System.Reflection;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 
 
@@ -33,13 +34,20 @@ namespace BannerlordExpanded.SettlementInteractions
             base.OnBeforeInitialModuleScreenSetAsRoot();
             if (!harmonyPatched)
             {
-                Harmony harmony = new Harmony("BannerlordExpanded.SettlementInteractions");
-                if (MCMSettings.Instance.IsInnEnabled)
-                    harmony.PatchCategory(Assembly.GetExecutingAssembly(), "InnModule");
-                if (MCMSettings.Instance.HostPartyEnabled)
-                    harmony.PatchCategory(Assembly.GetExecutingAssembly(), "HostPartyForSoldiersModule");
+                try
+                {
+                    Harmony harmony = new Harmony("BannerlordExpanded.SettlementInteractions");
+                    if (MCMSettings.Instance.IsInnEnabled)
+                        harmony.PatchCategory(Assembly.GetExecutingAssembly(), "InnModule");
+                    if (MCMSettings.Instance.HostPartyEnabled)
+                        harmony.PatchCategory(Assembly.GetExecutingAssembly(), "HostPartyForSoldiersModule");
 
-                harmonyPatched = true;
+                    harmonyPatched = true;
+                }
+                catch (System.Exception e)
+                {
+                    InformationManager.DisplayMessage(new InformationMessage($"[Bannerlord Expanded - Settlement Interactions]: Harmony patching failed with error: {e.Message}\n. Please report this to the mod author with your game version and where you got your game from (GOG/Steam/Xbox)!"));
+                }
             }
         }
         protected override void OnGameStart(Game game, IGameStarter gameStarter)
