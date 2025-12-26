@@ -24,8 +24,8 @@ namespace BannerlordExpanded.SettlementInteractions.HostPartyForSoldiers.Patches
         static void Postfix(IMission mission)
         {
             //InformationManager.DisplayMessage(new InformationMessage($"Attempting patch {CampaignMission.Current.Location.StringId}"));
-            Mission mission2;
-            if ((mission2 = (mission as Mission)) != null && CampaignMission.Current != null && PlayerEncounter.LocationEncounter != null && PlayerEncounter.LocationEncounter.Settlement != null && (CampaignMission.Current.Location != null && CampaignMission.Current.Location.StringId == "castle_partyroom"))
+            Mission? mission2;
+            if ((mission2 = (Mission)mission) != null && CampaignMission.Current != null && PlayerEncounter.LocationEncounter != null && PlayerEncounter.LocationEncounter.Settlement != null && (CampaignMission.Current.Location != null && CampaignMission.Current.Location.StringId == "castle_partyroom"))
             {
                 IEnumerable<MusicianGroup> enumerable = mission2.MissionObjects.FindAllWithType<MusicianGroup>();
                 Settlement settlement = PlayerEncounter.LocationEncounter.Settlement;

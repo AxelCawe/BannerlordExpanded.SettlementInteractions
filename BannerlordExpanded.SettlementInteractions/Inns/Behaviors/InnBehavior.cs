@@ -136,35 +136,6 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
             string backgroundMeshName = Settlement.CurrentSettlement.Culture.StringId + "_tavern";
             args.MenuContext.SetBackgroundMeshName(backgroundMeshName);
             //_inn.SetOwnerComplex(settlement.LocationComplex);
-            string scenes;
-            switch (settlement.Culture.StringId)
-            {
-                case CampaignData.CultureEmpire:
-                    scenes = "empire_house_c_tavern_a";
-                    break;
-                case CampaignData.CultureSturgia:
-                    scenes = "sturgia_house_b_interior_tavern";
-                    break;
-                case CampaignData.CultureAserai:
-                    scenes = "arabian_house_new_c_interior_c_tavern";
-                    break;
-                case CampaignData.CultureVlandia:
-                    scenes = "vlandia_tavern_interior_a";
-                    break;
-                case CampaignData.CultureKhuzait:
-                    scenes = "khuzait_house_g_interior_a_tavern";
-                    break;
-                case CampaignData.CultureBattania:
-                    scenes = "battania_tavern_interior_b";
-                    break;
-                case CampaignData.CultureNord:
-                    scenes = "empire_house_c_tavern_a";
-                    break;
-                default:
-                    scenes = "empire_house_c_tavern_a";
-                    break;
-            }
-            //Campaign.Current.GetCampaignBehavior<InnBehavior>().SetScenes(scenes);
 
             args.MenuTitle = new TextObject("{=BESI_Inn_GameMenu_Inn}Inn", null);
         }
@@ -197,13 +168,6 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
             return true;
         }
 
-        private void SetScenes(string SceneName)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                _inn.SetSceneName(i, SceneName);
-            }
-        }
 
         private void SetupInn()
         {
@@ -237,19 +201,19 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Behaviors
                     scenes = "sturgia_house_b_interior_tavern";
                     break;
                 case CampaignData.CultureAserai:
-                    scenes = "arabian_house_new_c_interior_c_tavern";
+                    scenes = "aserai_tavern_interior";
                     break;
                 case CampaignData.CultureVlandia:
                     scenes = "vlandia_tavern_interior_a";
                     break;
                 case CampaignData.CultureKhuzait:
-                    scenes = "khuzait_house_g_interior_a_tavern";
+                    scenes = "khuzait_tavern_a";
                     break;
                 case CampaignData.CultureBattania:
-                    scenes = "battania_tavern_interior_b";
+                    scenes = "battania_town_house_a_interior_a_tavern";
                     break;
                 case CampaignData.CultureNord:
-                    scenes = "empire_house_c_tavern_a";
+                    scenes = "sturgia_house_b_interior_tavern";
                     break;
                 default:
                     scenes = "empire_house_c_tavern_a";
