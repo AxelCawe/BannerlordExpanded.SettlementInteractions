@@ -11,13 +11,11 @@ namespace BannerlordExpanded.SettlementInteractions.Inns.Patches
     internal static class VillageEncounterPatch
     {
         [HarmonyPrefix]
-        private static bool Prefix(IMission __result, Location nextLocation, Location previousLocation = null, CharacterObject talkToChar = null, string playerSpecialSpawnTag = null)
+        private static bool Prefix(IMission __result, Location nextLocation, Location previousLocation, CharacterObject talkToChar, string playerSpecialSpawnTag)
         {
-            IMission result = null;
             if (nextLocation.StringId == "village_inn")
             {
-                result = CampaignMission.OpenIndoorMission(nextLocation.GetSceneName(0), 0, nextLocation, talkToChar);
-                __result = result;
+                __result = CampaignMission.OpenIndoorMission(nextLocation.GetSceneName(0), 0, nextLocation, talkToChar);
                 return false;
             }
             return true;
